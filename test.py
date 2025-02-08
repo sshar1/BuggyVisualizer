@@ -45,6 +45,7 @@ def getPoint():
         data = [row for row in csvreader]  # Read the remaining data rows
         #data = [row for idx, row in enumerate(csvreader) if idx % 2 == 0]  # Read every other data row
 
+        # Makes a 2D numpy array containing all the values
         for i in range(len(data)):
             row = data[i]
             lat = row['latitude']
