@@ -86,7 +86,7 @@ class Playback(Frame):
         current_points = percentage * self.max_length
         print(f"Scrolling to {percentage:.2f}, points: {current_points:.1f}, max_length: {self.max_length}")
         
-        current_time = int(percentage * self.max_length / 10)
+        current_time = int(percentage * self.max_length / 5)
         minutes = current_time // 60
         seconds = current_time % 60
         self.time_label.config(text=f"{minutes}:{seconds:02d} / {self.total_time}")
@@ -102,7 +102,7 @@ class Playback(Frame):
     def update_max_length(self, new_length):
         self.max_length = max(self.max_length, new_length)
         if self.max_length > 0:
-            total_seconds = int((self.max_length / 10))
+            total_seconds = int((self.max_length / 5))
             minutes = total_seconds // 60
             seconds = total_seconds % 60
             self.total_time = f"{minutes}:{seconds:02d}"
