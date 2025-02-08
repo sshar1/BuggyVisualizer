@@ -22,9 +22,9 @@ timer.pack()
 
 timer.insert(tk.END, "0:00")
 
-buggies = np.zeros((2, 20000, 2));
+buggies = np.zeros((6, 20000, 2));
 
-buggy_colors = ['yellow', 'red']
+buggy_colors = ['yellow', 'red', 'blue', 'green', 'purple', 'orange']
 
 try:
     bg_image = tk.PhotoImage(file="buggy-course1.png")
@@ -84,16 +84,16 @@ def getPoint():
 
         except FileNotFoundError:
             print("Error: CSV file not found. Please check the path.")
-            return
+            break
 
     
 
-    partPath(0, 0.5, True)
-    partPath(1, 0.5, True)
+    #partPath(0, 0.5, True)
+    #partPath(1, 0.5, True)
 
-    time.sleep(1)
+    #time.sleep(1)
     #resetCanvas()
-    drawPath(20, True)
+    drawPath(100, True)
 
 # draws the full path with inputs for speed and toggle for trail starting at index
 def drawPath(speed, trail):
@@ -112,10 +112,10 @@ def drawPath(speed, trail):
 
         while pause:
             print('paused')
-            #for j in range(len(buggies)):
-                #ovals.append(canvas.create_oval(buggies[j][i][0], buggies[j][i][1], buggies[j][i][0] - 3, buggies[j][i][1] + 2, fill=buggy_colors[j], outline=buggy_colors[j]))
-                #canvas.update()
-                #canvas.delete(ovals[j])
+            for j in range(len(buggies)):
+                ovals.append(canvas.create_oval(buggies[j][i][0], buggies[j][i][1], buggies[j][i][0] - 3, buggies[j][i][1] + 2, fill=buggy_colors[j], outline=buggy_colors[j]))
+                canvas.update()
+                canvas.delete(ovals[j])
             #oval = canvas.create_oval(pixels[i][0], pixels[i][1], pixels[i][0] - 3, pixels[i][1] + 2, fill='yellow', outline='yellow')
             #canvas.update()
             #canvas.delete(oval)    
