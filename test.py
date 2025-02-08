@@ -10,6 +10,14 @@ root = Tk()
 canvas = tk.Canvas(root, height=780, width=1235)
 canvas.pack()
 
+timer = tk.Text(root, height=1, width=10)
+timer.pack()
+
+
+
+timer.insert(tk.END, "0:00")
+
+
 pixels = np.zeros((20000, 2));
 
 try:
@@ -20,6 +28,7 @@ except FileNotFoundError:
     print("Error: Image file not found. Please check the path.")
     # If image not found, set a default background color
     canvas.config(bg="lightblue")
+
 
 
 
@@ -52,14 +61,23 @@ def getPoint():
             pixels[i][0] = 1150 - pixelX
             pixels[i][1] = pixelY + 7
 
+
         #partPath(1, len(data))
-        drawPath(len(data), 10, True)
+        drawPath(len(data), 1, False)
 
 # draws the full path with inputs for speed and toggle for trail
 def drawPath(length, speed, trail):
+    timing = 0
+
     for i in range(length):
+
+        timing += 0.1
         oval = canvas.create_oval(pixels[i][0], pixels[i][1], pixels[i][0] - 3, pixels[i][1] + 2, fill='yellow', outline='yellow')
         canvas.update()
+
+        timer.delete(1.0, tk.END)
+        timer.insert(tk.END, str(timing))
+
         time.sleep(0.1 / speed)
         if not trail:
             canvas.delete(oval)
