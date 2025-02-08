@@ -98,8 +98,22 @@ class PathVisualizer():
                 fill=self.buggy.trail_color, outline=self.buggy.trail_color
             )
             self.trail_ovals.append(oval)
+            
 
+        else: 
+            for oval in self.trail_ovals:
+                self.canvas.delete(oval)
+            self.trail_ovals.clear()
 
+            for i in range(current_index + 1):
+                if self.pixels[i][0] == 0 and self.pixels[i][1] == 0:
+                    continue
+                oval = self.canvas.create_oval(
+                    self.pixels[i][0], self.pixels[i][1], 
+                    self.pixels[i][0] - 3, self.pixels[i][1] + 2, 
+                    fill=self.buggy.trail_color, outline=self.buggy.trail_color
+                )
+                self.trail_ovals.append(oval)
         
         # Draw current position
         print(self.buggy.get_icon())
@@ -116,3 +130,5 @@ class PathVisualizer():
             #     self.pixels[current_index][0] - 3, self.pixels[current_index][1] + 2,
             #     fill='yellow', outline='yellow'
             # )
+
+        self.last_point = current_index
