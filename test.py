@@ -16,7 +16,6 @@ pause = False
 def pause_click():
     global pause
     pause = not pause
-    print(pause)
 
 timer = tk.Text(root, height=1, width=10)
 timer.pack()
@@ -71,7 +70,7 @@ def getPoint():
             pixels[i][1] = pixelY + 7
 
 
-        partPath(0.1, len(data), False)
+        partPath(0.5, len(data), False)
         time.sleep(1)
         resetCanvas()
         drawPath(len(data), 10, False)
