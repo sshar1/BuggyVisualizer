@@ -81,13 +81,11 @@ def getPoint():
 
         
 
-    #partPath(0.1, len(data), True)
-
-    print(buggies[0])
-    print(buggies[1])
+    partPath(0, 0, len(data), True)
+    partPath(1, 0, len(data), True)
 
     time.sleep(1)
-    resetCanvas()
+    #resetCanvas()
     drawPath(max_length, 50, True)
 
 
@@ -104,7 +102,8 @@ def drawPath(length, speed, trail):
     pause_button.pack()
 
     if trail:
-        partPath(index * 1.0 / length, length, True)
+        partPath(0, index * 1.0 / length, length, True)
+        partPath(1, index * 1.0 / length, length, True)
 
     for i in range(index, length):  
         ovals = []
