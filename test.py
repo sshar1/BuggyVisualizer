@@ -34,9 +34,9 @@ def getPoint():
         csvreader = csv.DictReader(csvfile)
         header = next(csvreader)  # Read the header row
         #data = [row for row in csvreader]  # Read the remaining data rows
-        data = [row for idx, row in enumerate(csvreader) if idx % 5 == 0]  # Read every 10th data row
+        data = [row for idx, row in enumerate(csvreader) if idx % 5 == 0]  # Read every 5th data row
 
-        for i in range(len(data)):
+        for i in range(1100):
             row = data[i]
             lat = row['latitude']
             long = row['longitude']
@@ -52,13 +52,14 @@ def getPoint():
             pixels[i][0] = 1150 - pixelX
             pixels[i][1] = pixelY + 7
 
-        drawPath(len(data), 2)
+        drawPath(1100, 10)
 
 def drawPath(length, speed):
     for i in range(length):
-        canvas.create_oval(pixels[i][0], pixels[i][1], pixels[i][0] - 3, pixels[i][1] + 2, fill='yellow', outline='yellow')
-        time.sleep(0.016 / speed)
+        oval = canvas.create_oval(pixels[i][0], pixels[i][1], pixels[i][0] - 3, pixels[i][1] + 2, fill='yellow', outline='yellow')
         canvas.update()
+        time.sleep(0.5 / speed)
+        canvas.delete(oval)
 
 
 
