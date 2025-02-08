@@ -71,10 +71,10 @@ def getPoint():
             pixels[i][1] = pixelY + 7
 
 
-        partPath(0.1, len(data), False)
+        partPath(0.1, len(data), True)
         time.sleep(1)
         resetCanvas()
-        drawPath(len(data), 10, False)
+        drawPath(len(data), 10, True)
 
 # draws the full path with inputs for speed and toggle for trail starting at index
 def drawPath(length, speed, trail):
@@ -82,6 +82,9 @@ def drawPath(length, speed, trail):
 
     pause_button = tk.Button(root, text="Pause", command = pause_click)
     pause_button.pack()
+
+    if trail:
+        partPath(index * 1.0 / length, length, True)
 
     for i in range(index, length):  
 
