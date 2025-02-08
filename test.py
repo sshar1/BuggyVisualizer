@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import Tk, Label, Button, PhotoImage
-import pandas as pd
+import numpy as np
 import csv
 import time
 
