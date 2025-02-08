@@ -52,14 +52,27 @@ def getPoint():
             pixels[i][0] = 1150 - pixelX
             pixels[i][1] = pixelY + 7
 
-        drawPath(len(data), 2)
+        traversePath(len(data), 10)
 
-def drawPath(length, speed):
+def fullPath(length, speed):
     for i in range(length):
         canvas.create_oval(pixels[i][0], pixels[i][1], pixels[i][0] - 3, pixels[i][1] + 2, fill='yellow', outline='yellow')
-        time.sleep(0.016 / speed)
         canvas.update()
+        time.sleep(0.5 / speed)
 
+def traversePath(length, speed):
+    for i in range(1000):
+        partPath(i/1000.0, length)
+        canvas.update()
+        time.sleep(0.5 / speed)
+        canvas.delete("all")
+        canvas.create_image(0, 0, image=bg_image, anchor="nw")
+
+def partPath(percent, length):
+    index = int(percent * length) - 1
+    for i in range(index):
+        canvas.create_oval(pixels[i][0], pixels[i][1], pixels[i][0] - 3, pixels[i][1] + 2, fill='yellow', outline='yellow')
+    canvas.create_oval(pixels[index][0] + 7, pixels[index][1] - 7, pixels[index][0] - 10, pixels[index][1] + 9, fill='yellow', outline='yellow')
 
 
 getPoint()
