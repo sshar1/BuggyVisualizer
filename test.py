@@ -44,7 +44,7 @@ index = 0
 
 def getPoint():
     # Path to the CSV file
-    csv_file_path = 'Sheet1.csv'
+    csv_file_path = 'Sheet2.csv'
 
     with open(csv_file_path, mode='r', newline='') as csvfile:
         csvreader = csv.DictReader(csvfile)
@@ -70,7 +70,7 @@ def getPoint():
             pixels[i][1] = pixelY + 7
 
 
-        partPath(0.1, len(data), True)
+        #partPath(0.1, len(data), True)
         time.sleep(1)
         resetCanvas()
         drawPath(len(data), 10, True)
