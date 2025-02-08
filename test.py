@@ -52,14 +52,15 @@ def getPoint():
             pixels[i][0] = 1150 - pixelX
             pixels[i][1] = pixelY + 7
 
-        drawPath(1100, 10)
+        drawPath(1100, 10, False)
 
-def drawPath(length, speed):
+def drawPath(length, speed, trail):
     for i in range(length):
         oval = canvas.create_oval(pixels[i][0], pixels[i][1], pixels[i][0] - 3, pixels[i][1] + 2, fill='yellow', outline='yellow')
         canvas.update()
         time.sleep(0.5 / speed)
-        canvas.delete(oval)
+        if not trail:
+            canvas.delete(oval)
 
 def traversePath(length, speed):
     for i in range(1000):
