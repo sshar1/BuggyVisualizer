@@ -11,6 +11,7 @@ class PathVisualizer():
         self.data_loaded = False
         self.path_length = 0
         self.length_update_callback = None
+        self.last_point = -1
         
         # Initialize data if CSV path is already set
         if hasattr(self.buggy, 'csv_file_path') and self.buggy.csv_file_path:
@@ -72,22 +73,33 @@ class PathVisualizer():
         # Clear previous visualization
         if self.current_oval:
             self.canvas.delete(self.current_oval)
-        for oval in self.trail_ovals:
-            self.canvas.delete(oval)
-        self.trail_ovals.clear()
+        #for oval in self.trail_ovals:
+            #self.canvas.delete(oval)
+        #self.trail_ovals.clear()
         
         current_index = min(int(current_point), self.path_length - 1)
         
         # Draw trail up to current position
-        for i in range(current_index + 1):
-            if self.pixels[i][0] == 0 and self.pixels[i][1] == 0:
-                continue
+        #for i in range(current_index + 1):
+            #if self.pixels[i][0] == 0 and self.pixels[i][1] == 0:
+                #continue
+            #oval = self.canvas.create_oval(
+                #self.pixels[i][0], self.pixels[i][1], 
+                #self.pixels[i][0] - 3, self.pixels[i][1] + 2, 
+                #fill=self.buggy.trail_color, outline=self.buggy.trail_color
+            #)
+            #self.trail_ovals.append(oval)
+        
+        # Draw trail up to current position
+        if self.last_point <= current_index:
             oval = self.canvas.create_oval(
-                self.pixels[i][0], self.pixels[i][1], 
-                self.pixels[i][0] - 3, self.pixels[i][1] + 2, 
+                self.pixels[current_index][0], self.pixels[current_index][1], 
+                self.pixels[current_index][0] - 3, self.pixels[current_index][1] + 2,
                 fill=self.buggy.trail_color, outline=self.buggy.trail_color
             )
             self.trail_ovals.append(oval)
+
+
         
         # Draw current position
         if 0 <= current_index < self.path_length:
@@ -96,3 +108,5 @@ class PathVisualizer():
                 self.pixels[current_index][0] - 3, self.pixels[current_index][1] + 2,
                 fill='yellow', outline='yellow'
             )
+        
+        self.last_point = current_point
