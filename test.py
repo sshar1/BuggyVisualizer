@@ -52,13 +52,14 @@ def getPoint():
             pixels[i][0] = 1150 - pixelX
             pixels[i][1] = pixelY + 7
 
-        drawPath(1100, 10)
+        fullPath(1100, 10)
 
 def fullPath(length, speed):
     for i in range(length):
-        canvas.create_oval(pixels[i][0], pixels[i][1], pixels[i][0] - 3, pixels[i][1] + 2, fill='yellow', outline='yellow')
+        oval = canvas.create_oval(pixels[i][0], pixels[i][1], pixels[i][0] - 3, pixels[i][1] + 2, fill='yellow', outline='yellow')
         canvas.update()
         time.sleep(0.5 / speed)
+        canvas.delete(oval)
 
 def traversePath(length, speed):
     for i in range(1000):
