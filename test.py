@@ -16,7 +16,6 @@ pause = False
 def pause_click():
     global pause
     pause = not pause
-    print(pause)
 
 timer = tk.Text(root, height=1, width=10)
 timer.pack()
