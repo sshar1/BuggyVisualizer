@@ -36,7 +36,8 @@ except FileNotFoundError:
     # If image not found, set a default background color
     canvas.config(bg="lightblue")
 
-
+#global index
+index = 0
 
 
 
@@ -70,17 +71,19 @@ def getPoint():
             pixels[i][1] = pixelY + 7
 
 
-        #partPath(0.10, len(data), False)
+        partPath(0.1, len(data), False)
+        time.sleep(1)
+        resetCanvas()
         drawPath(len(data), 10, False)
 
-# draws the full path with inputs for speed and toggle for trail
+# draws the full path with inputs for speed and toggle for trail starting at index
 def drawPath(length, speed, trail):
     timing = 0
 
     pause_button = tk.Button(root, text="Pause", command = pause_click)
     pause_button.pack()
 
-    for i in range(length):  
+    for i in range(index, length):  
 
         while pause:
             oval = canvas.create_oval(pixels[i][0], pixels[i][1], pixels[i][0] - 3, pixels[i][1] + 2, fill='yellow', outline='yellow')
@@ -107,8 +110,9 @@ def drawPath(length, speed, trail):
 #         canvas.delete("all")
 #         canvas.create_image(0, 0, image=bg_image, anchor="nw")
 
-# pastes a percentage of the path
+# pastes a percentage of the path and changes index
 def partPath(percent, length, trail):
+    global index
     index = round(percent * length - 1)
     if trail:
         for i in range(int(index)):
@@ -118,6 +122,9 @@ def partPath(percent, length, trail):
         canvas.create_oval(pixels[index][0], pixels[index][1], pixels[index][0] - 3, pixels[index][1] + 2, fill='yellow', outline='yellow')
     canvas.update()
 
+def resetCanvas():
+    canvas.delete("all")
+    canvas.create_image(0, 0, image=bg_image, anchor="nw")
 
 getPoint()
 
