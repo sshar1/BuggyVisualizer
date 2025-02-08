@@ -35,7 +35,7 @@ class PathVisualizer():
         with open(self.buggy.csv_file_path, mode='r', newline='') as csvfile:
             csvreader = csv.DictReader(csvfile)
             header = next(csvreader)
-            data = [row for row in csvreader]
+            data = [row for idx, row in enumerate(csvreader) if idx % 2 == 0]
 
             for i in range(len(data)):
                 row = data[i]
@@ -43,14 +43,14 @@ class PathVisualizer():
                 long = row['longitude']
 
                 y = 40.441778 - float(lat)
-                x = float(long) + 79.9418917 
+                x = float(long) + 79.948917 
                 
                 y *= 100000
                 x *= 100000
                 pixelY = abs(y * 2.14)
                 pixelX = abs(x * 1.64)
 
-                self.pixels[i][0] = 1150 - pixelX
+                self.pixels[i][0] = pixelX
                 self.pixels[i][1] = pixelY + 7
             
             old_length = self.path_length
