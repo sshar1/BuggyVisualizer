@@ -24,7 +24,7 @@ timer.pack()
 timer.insert(tk.END, "0:00")
 
 
-buggies = np.zeros((3, 20000, 2));
+buggies = np.zeros((2, 20000, 2));
 
 buggy_colors = ['yellow', 'red']
 
@@ -45,7 +45,7 @@ def getPoint():
     # Path to the CSV file
     max_length = 0
 
-    for l in range(2):
+    for l in range(len(buggies)):
         csv_file_path = f'Sheet{l+1}.csv'
         #print(csv_file_path)
     #csv_file_path = 'Sheet2.csv'
@@ -89,10 +89,6 @@ def getPoint():
     drawPath(max_length, 50, True)
 
 
-def buggyPoint(index):
-    for i in range(len(buggies)):
-        canvas.create_oval(buggies[i][index][0], buggies[i][index][1], buggies[i][index][0] - 3, buggies[i][index][1] + 2, fill=buggy_colors[i], outline=buggy_colors[i])
-        canvas.update()
 
 # draws the full path with inputs for speed and toggle for trail starting at index
 def drawPath(length, speed, trail):
@@ -109,7 +105,7 @@ def drawPath(length, speed, trail):
         ovals = []
 
         while pause:
-            for j in range(2):
+            for j in range(len(buggies)):
                 ovals.append(canvas.create_oval(buggies[j][i][0], buggies[j][i][1], buggies[j][i][0] - 3, buggies[j][i][1] + 2, fill=buggy_colors[j], outline=buggy_colors[j]))
                 canvas.update()
                 canvas.delete(ovals[j])
@@ -119,7 +115,7 @@ def drawPath(length, speed, trail):
 
         timing += 0.1
 
-        for j in range(2):
+        for j in range(len(buggies)):
             ovals.append(canvas.create_oval(buggies[j][i][0], buggies[j][i][1], buggies[j][i][0] - 3, buggies[j][i][1] + 2, fill=buggy_colors[j], outline=buggy_colors[j]))
             canvas.update()
             #oval = canvas.create_oval(pixels[i][0], pixels[i][1], pixels[i][0] - 3, pixels[i][1] + 2, fill='yellow', outline='yellow')
