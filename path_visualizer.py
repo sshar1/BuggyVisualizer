@@ -90,9 +90,17 @@ class PathVisualizer():
             self.trail_ovals.append(oval)
         
         # Draw current position
+        print(self.buggy.get_icon())
         if 0 <= current_index < self.path_length:
-            self.current_oval = self.canvas.create_oval(
-                self.pixels[current_index][0], self.pixels[current_index][1],
-                self.pixels[current_index][0] - 3, self.pixels[current_index][1] + 2,
-                fill='yellow', outline='yellow'
+            self.current_oval = self.canvas.create_image(
+                self.pixels[current_index][0],
+                self.pixels[current_index][1],
+                image=self.buggy.get_icon(),
+                anchor='center'  # This determines how the image is positioned relative to the coordinates
             )
+
+            # self.current_oval = self.canvas.create_oval(
+            #     self.pixels[current_index][0], self.pixels[current_index][1],
+            #     self.pixels[current_index][0] - 3, self.pixels[current_index][1] + 2,
+            #     fill='yellow', outline='yellow'
+            # )

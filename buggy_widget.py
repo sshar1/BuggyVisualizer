@@ -8,7 +8,7 @@ from editable_label import EditableLabel
 class BuggyWidget(Frame):
 
     COLORS = ['red', '#1ad80a', '#14efee', 'yellow', '#961cfb', '#fb1cdd']
-    BUGGY_IMAGES = ['imgs/buggy1.png', 'imgs/buggy2.png', 'imgs/buggy3.png']
+    BUGGY_IMAGES = ['imgs/buggy1.png', 'imgs/buggy2.png', 'imgs/buggy3.png', 'imgs/buggy4.png', 'imgs/buggy5.png', 'imgs/buggy6.png']
     MAX_FILENAME_LENGTH = 25
 
     def __init__(self, parent, label, buggy_widgets, add_button):
@@ -19,7 +19,7 @@ class BuggyWidget(Frame):
         self.trail_color = self.COLORS[len(buggy_widgets)]
 
         # Load the icon (replace 'icon.png' with your icon file)
-        self.icon = ImageTk.PhotoImage(Image.open("imgs/buggy1.png").resize((30, 20)))
+        self.icon = ImageTk.PhotoImage(Image.open("imgs/buggy1.png").resize((80, 60)))
 
         # Create a label for the icon
         self.icon_label = CycleImageLabel(self, self.BUGGY_IMAGES, image=self.icon, bg="#282828")
@@ -89,4 +89,7 @@ class BuggyWidget(Frame):
         self.csv_file_path = file_path
         if hasattr(self, 'path_visualizer'):
             self.path_visualizer.getPoint()
+    
+    def get_icon(self):
+        return self.icon_label.current__big_image
 
