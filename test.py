@@ -24,7 +24,10 @@ timer.pack()
 timer.insert(tk.END, "0:00")
 
 
-pixels = np.zeros((20000, 2));
+buggies = np.zeros((3, 20000, 2));
+
+buggy_colors = ['yellow', 'red']
+
 
 try:
     bg_image = tk.PhotoImage(file="buggy-course1.png")
@@ -38,42 +41,60 @@ except FileNotFoundError:
 #global index
 index = 0
 
-
-
-
-
 def getPoint():
     # Path to the CSV file
-    csv_file_path = 'Sheet2.csv'
+    max_length = 0
 
-    with open(csv_file_path, mode='r', newline='') as csvfile:
-        csvreader = csv.DictReader(csvfile)
-        header = next(csvreader)  # Read the header row
-        data = [row for row in csvreader]  # Read the remaining data rows
-        #data = [row for idx, row in enumerate(csvreader) if idx % 2 == 0]  # Read every other data row
+    for l in range(2):
+        csv_file_path = f'Sheet{l+1}.csv'
+        #print(csv_file_path)
+    #csv_file_path = 'Sheet2.csv'
 
-        # Makes a 2D numpy array containing all the values
-        for i in range(len(data)):
-            row = data[i]
-            lat = row['latitude']
-            long = row['longitude']
+        with open(csv_file_path, mode='r', newline='') as csvfile:
+            csvreader = csv.DictReader(csvfile)
+            header = next(csvreader)  # Read the header row
+            #data = [row for row in csvreader]  # Read the remaining data rows
+            data = [row for idx, row in enumerate(csvreader) if idx % 2 == 0]  # Read every other data row
 
-            y = 40.441778 -float(lat)
-            x = float(long) + 79.9418917 
-            
-            y *= 100000
-            x *= 100000
-            pixelY = abs(y * 2.14)
-            pixelX = abs(x * 1.64)
+            if(len(data) > max_length):
+                max_length = len(data)
 
-            pixels[i][0] = 1150 - pixelX
-            pixels[i][1] = pixelY + 7
+            # Makes a 2D numpy array containing all the values
+            for i in range(len(data)):
+                row = data[i]
+                lat = row['latitude']
+                long = row['longitude']
+
+                y = 40.441778 -float(lat)
+                x = float(long) + 79.9418917 
+                
+                y *= 100000
+                x *= 100000
+                pixelY = abs(y * 2.14)
+                pixelX = abs(x * 1.64)
+
+                buggies[l][i][0] = 1150 - pixelX
+                buggies[l][i][1] = pixelY + 7
+
+                
 
 
-        #partPath(0.1, len(data), True)
-        time.sleep(1)
-        resetCanvas()
-        drawPath(len(data), 10, True)
+        
+
+    #partPath(0.1, len(data), True)
+
+    print(buggies[0])
+    print(buggies[1])
+
+    time.sleep(1)
+    resetCanvas()
+    drawPath(max_length, 50, True)
+
+
+def buggyPoint(index):
+    for i in range(len(buggies)):
+        canvas.create_oval(buggies[i][index][0], buggies[i][index][1], buggies[i][index][0] - 3, buggies[i][index][1] + 2, fill=buggy_colors[i], outline=buggy_colors[i])
+        canvas.update()
 
 # draws the full path with inputs for speed and toggle for trail starting at index
 def drawPath(length, speed, trail):
@@ -86,22 +107,33 @@ def drawPath(length, speed, trail):
         partPath(index * 1.0 / length, length, True)
 
     for i in range(index, length):  
+        ovals = []
 
         while pause:
-            oval = canvas.create_oval(pixels[i][0], pixels[i][1], pixels[i][0] - 3, pixels[i][1] + 2, fill='yellow', outline='yellow')
-            canvas.update()
-            canvas.delete(oval)    
+            for j in range(2):
+                ovals.append(canvas.create_oval(buggies[j][i][0], buggies[j][i][1], buggies[j][i][0] - 3, buggies[j][i][1] + 2, fill=buggy_colors[j], outline=buggy_colors[j]))
+                canvas.update()
+                canvas.delete(ovals[j])
+            #oval = canvas.create_oval(pixels[i][0], pixels[i][1], pixels[i][0] - 3, pixels[i][1] + 2, fill='yellow', outline='yellow')
+            #canvas.update()
+            #canvas.delete(oval)    
 
         timing += 0.1
-        oval = canvas.create_oval(pixels[i][0], pixels[i][1], pixels[i][0] - 3, pixels[i][1] + 2, fill='yellow', outline='yellow')
-        canvas.update()
+
+        for j in range(2):
+            ovals.append(canvas.create_oval(buggies[j][i][0], buggies[j][i][1], buggies[j][i][0] - 3, buggies[j][i][1] + 2, fill=buggy_colors[j], outline=buggy_colors[j]))
+            canvas.update()
+            #oval = canvas.create_oval(pixels[i][0], pixels[i][1], pixels[i][0] - 3, pixels[i][1] + 2, fill='yellow', outline='yellow')
+        
 
         timer.delete(1.0, tk.END)
         timer.insert(tk.END, str(timing))
 
         time.sleep(0.1 / speed)
         if not trail:
-            canvas.delete(oval)
+            for j in range(len(buggies)):
+                canvas.delete(ovals[j])
+            #canvas.delete(oval)
 
 # def traversePath(length, speed):
 #     for i in range(1000):
