@@ -52,22 +52,18 @@ def getPoint():
     #csv_file_path = 'Sheet2.csv'
 
         try: 
+            
             with open(csv_file_path, mode='r', newline='') as csvfile:
                 csvreader = csv.DictReader(csvfile)
                 header = next(csvreader)  # Read the header row
                 #data = [row for row in csvreader]  # Read the remaining data rows
                 data = [row for idx, row in enumerate(csvreader) if idx % 2 == 0]  # Read every other data row
-        with open(csv_file_path, mode='r', newline='') as csvfile:
-            csvreader = csv.DictReader(csvfile)
-            header = next(csvreader)  # Read the header row
-            #data = [row for row in csvreader]  # Read the remaining data rows
-            data = [row for idx, row in enumerate(csvreader) if idx % 2 == 0]  # Read every other data row
-            buggy_length[l] = len(data)
+                buggy_length[l] = len(data)
 
-            # Updates max_length
-            global max_length
-            if(len(data) > max_length):
-                max_length = len(data)
+                # Updates max_length
+                global max_length
+                if(len(data) > max_length):
+                    max_length = len(data)
 
                 # Makes a 2D numpy array containing all the values
                 for i in range(len(data)):
@@ -86,6 +82,10 @@ def getPoint():
                     buggies[l][i][0] = 1150 - pixelX
                     buggies[l][i][1] = pixelY + 7
 
+        except FileNotFoundError:
+            print("Error: CSV file not found. Please check the path.")
+            return
+
     
 
     partPath(0, 0.5, True)
@@ -93,7 +93,7 @@ def getPoint():
 
     time.sleep(1)
     #resetCanvas()
-    drawPath(1, True)
+    drawPath(20, True)
 
 # draws the full path with inputs for speed and toggle for trail starting at index
 def drawPath(speed, trail):
