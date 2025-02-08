@@ -45,7 +45,7 @@ def getPoint(root):
             pixelX = abs(x * 1.64)
             
             print(pixelX, pixelY)
-            canvas.create_oval(pixelX, pixelY, pixelX + 1, pixelY + 1, fill='black')
+            canvas.create_oval(1150 - pixelX, pixelY, 1150 - pixelX - 3, pixelY + 3, fill='black')
 
 
 
