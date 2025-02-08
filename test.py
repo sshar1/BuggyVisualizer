@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import Tk, Label, Button, PhotoImage
 import pandas as pd
 import csv
+import time
 
 root = Tk()
 
@@ -24,13 +25,14 @@ except FileNotFoundError:
 
 
 
-def getPoint(root):
+def getPoint():
     # Path to the CSV file
     csv_file_path = 'Sheet1.csv'
 
     with open(csv_file_path, mode='r', newline='') as csvfile:
         csvreader = csv.reader(csvfile)
         header = next(csvreader)  # Read the header row
+        #data = [row for row in csvreader]  # Read the remaining data rows
         data = [row for idx, row in enumerate(csvreader) if idx % 5 == 0]  # Read every 10th data row
 
         for i in range(len(data)):
@@ -46,14 +48,15 @@ def getPoint(root):
             pixelY = abs(y * 2.14)
             pixelX = abs(x * 1.64)
             
-            print(pixelX, pixelY)
             canvas.create_oval(1150 - pixelX, pixelY + 7, 1150 - pixelX - 3, pixelY + 9, fill='yellow', outline='yellow')
+            time.sleep(0.016)
+            canvas.update()
 
             
 
 
 
-getPoint(root)
+getPoint()
 
 
 
