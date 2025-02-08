@@ -3,6 +3,7 @@ from tkinter import Tk, Label, Button, PhotoImage
 import numpy as np
 import csv
 import time
+import asyncio as aio
 
 root = Tk()
 
@@ -10,9 +11,19 @@ root = Tk()
 canvas = tk.Canvas(root, height=780, width=1235)
 canvas.pack()
 
+pause = True
+
+def pause_click():
+    global pause
+    pause = not pause
+    print(pause)
+
+pause_button = tk.Button(root, text="Pause", command = pause_click())
+pause_button.event_add('<<Pause>>', '<Button-1>')
+pause_button.pack()
+
 timer = tk.Text(root, height=1, width=10)
 timer.pack()
-
 
 
 timer.insert(tk.END, "0:00")
@@ -63,13 +74,14 @@ def getPoint():
 
 
         #partPath(1, len(data))
-        drawPath(len(data), 1, False)
+        drawPath(len(data), 10, False)
+        
 
 # draws the full path with inputs for speed and toggle for trail
 def drawPath(length, speed, trail):
     timing = 0
 
-    for i in range(length):
+    for i in range(length):      
 
         timing += 0.1
         oval = canvas.create_oval(pixels[i][0], pixels[i][1], pixels[i][0] - 3, pixels[i][1] + 2, fill='yellow', outline='yellow')
