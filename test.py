@@ -93,7 +93,7 @@ def getPoint():
 
     #time.sleep(1)
     #resetCanvas()
-    drawPath(100, True)
+    drawPath(10, True)
 
 # draws the full path with inputs for speed and toggle for trail starting at index
 def drawPath(speed, trail):
