@@ -88,7 +88,7 @@ def getPoint():
 
     
 
-    #partPath(0, 0.5, True)
+    #partPath(2, 0, True)
     #partPath(1, 0.5, True)
 
     #time.sleep(1)
@@ -111,7 +111,7 @@ def drawPath(speed, trail):
         ovals = []
 
         while pause:
-            print('paused')
+            
             for j in range(len(buggies)):
                 ovals.append(canvas.create_oval(buggies[j][i][0], buggies[j][i][1], buggies[j][i][0] - 3, buggies[j][i][1] + 2, fill=buggy_colors[j], outline=buggy_colors[j]))
                 canvas.update()
