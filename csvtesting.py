@@ -9,12 +9,15 @@ with open(csv_file_path, mode='r', newline='') as csvfile:
     header = next(csvreader)  # Read the header row
     data = [row for row in csvreader]  # Read the rest of the data
     for row in data:
-        print(row[0])
         value = row[0]
-        value = float(value)
-        value *= 100000
-        point = value % 1000
-        pixel = (304 - point) * 2.14
-        print(point, pixel)
+        lval = row[2]
+        print(value, lval)
+        value = 40.441778 -float(value)
+        lval = 79.9418917 + float(lval)
+        value *= 1000000
+        lval *= 1000000
+        pixel = (value) * 2.14
+        lpix = (lval) * 1.64
+        print(pixel, lpix)
 
 # Print the header and data
