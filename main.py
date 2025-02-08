@@ -77,7 +77,7 @@ main_frame.pack(fill='both', expand=True)
 
 course_canvas = Canvas(main_frame, height=780, width=1235)
 course_canvas.grid(row=0, column=0, sticky='nsew')
-bg_image = PhotoImage(file="imgs/buggy-course1.png")
+bg_image = PhotoImage(file="imgs/buggy-course2.png")
 # Create the image on the canvas
 course_canvas.create_image(0, 0, image=bg_image, anchor="nw")
 

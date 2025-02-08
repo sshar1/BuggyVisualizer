@@ -120,7 +120,7 @@ class PathVisualizer():
         if 0 <= current_index < self.path_length:
             self.current_oval = self.canvas.create_image(
                 self.pixels[current_index][0],
-                self.pixels[current_index][1],
+                self.pixels[current_index][1] - 6,
                 image=self.buggy.get_icon(),
                 anchor='center'  # This determines how the image is positioned relative to the coordinates
             )
