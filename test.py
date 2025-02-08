@@ -62,7 +62,7 @@ def getPoint():
             pixels[i][1] = pixelY + 7
 
 
-        partPath(1, len(data), False)
+        partPath(0.10, len(data), False)
         #drawPath(len(data), 1, False)
 
 # draws the full path with inputs for speed and toggle for trail
@@ -93,7 +93,7 @@ def drawPath(length, speed, trail):
 
 # pastes a percentage of the path
 def partPath(percent, length, trail):
-    index = percent * length - 1
+    index = round(percent * length - 1)
     if trail:
         for i in range(int(index)):
             canvas.create_oval(pixels[i][0], pixels[i][1], pixels[i][0] - 3, pixels[i][1] + 2, fill='yellow', outline='yellow')
