@@ -52,9 +52,9 @@ def getPoint():
             pixels[i][0] = 1150 - pixelX
             pixels[i][1] = pixelY + 7
 
-        fullPath(1100, 10)
+        drawPath(1100, 10)
 
-def fullPath(length, speed):
+def drawPath(length, speed):
     for i in range(length):
         oval = canvas.create_oval(pixels[i][0], pixels[i][1], pixels[i][0] - 3, pixels[i][1] + 2, fill='yellow', outline='yellow')
         canvas.update()
