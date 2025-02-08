@@ -145,15 +145,15 @@ def drawPath(length, speed, trail):
 #         canvas.create_image(0, 0, image=bg_image, anchor="nw")
 
 # pastes a percentage of the path and changes index
-def partPath(percent, length, trail):
+def partPath(buggy, percent, length, trail):
     global index
     index = round(percent * length - 1)
     if trail:
         for i in range(int(index)):
-            canvas.create_oval(pixels[i][0], pixels[i][1], pixels[i][0] - 3, pixels[i][1] + 2, fill='yellow', outline='yellow')
+            canvas.create_oval(buggies[buggy][i][0], buggies[buggy][i][1], buggies[buggy][i][0] - 3, buggies[buggy][i][1] + 2, fill=buggy_colors[buggy], outline=buggy_colors[buggy])
     # canvas.create_oval(pixels[index][0] + 7, pixels[index][1] - 7, pixels[index][0] - 10, pixels[index][1] + 9, fill='yellow', outline='yellow')
     else:
-        canvas.create_oval(pixels[index][0], pixels[index][1], pixels[index][0] - 3, pixels[index][1] + 2, fill='yellow', outline='yellow')
+        canvas.create_oval(buggies[buggy][index][0], buggies[buggy][index][1], buggies[buggy][index][0] - 3, buggies[buggy][index][1] + 2, fill=buggy_colors[buggy], outline=buggy_colors[buggy])
     canvas.update()
 
 def resetCanvas():
