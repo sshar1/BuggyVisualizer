@@ -79,7 +79,7 @@ class Playback(Frame):
             
         self.timeline.set(self.current_value)
         self.on_scroll(str(self.current_value))
-        self.after_id = self.after(50, self.update_playback)
+        self.after_id = self.after(25, self.update_playback)
     
     def on_scroll(self, value):
         percentage = float(value) / 100.0
