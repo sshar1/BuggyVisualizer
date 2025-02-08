@@ -11,16 +11,12 @@ root = Tk()
 canvas = tk.Canvas(root, height=780, width=1235)
 canvas.pack()
 
-pause = True
+pause = False
 
 def pause_click():
     global pause
     pause = not pause
     print(pause)
-
-pause_button = tk.Button(root, text="Pause", command = pause_click())
-pause_button.event_add('<<Pause>>', '<Button-1>')
-pause_button.pack()
 
 timer = tk.Text(root, height=1, width=10)
 timer.pack()
@@ -74,14 +70,22 @@ def getPoint():
             pixels[i][1] = pixelY + 7
 
 
-        partPath(0.10, len(data), False)
-        #drawPath(len(data), 1, False)
+        #partPath(0.10, len(data), False)
+        drawPath(len(data), 10, False)
 
 # draws the full path with inputs for speed and toggle for trail
 def drawPath(length, speed, trail):
     timing = 0
 
-    for i in range(length):      
+    pause_button = tk.Button(root, text="Pause", command = pause_click)
+    pause_button.pack()
+
+    for i in range(length):  
+
+        while pause:
+            oval = canvas.create_oval(pixels[i][0], pixels[i][1], pixels[i][0] - 3, pixels[i][1] + 2, fill='yellow', outline='yellow')
+            canvas.update()
+            canvas.delete(oval)    
 
         timing += 0.1
         oval = canvas.create_oval(pixels[i][0], pixels[i][1], pixels[i][0] - 3, pixels[i][1] + 2, fill='yellow', outline='yellow')
